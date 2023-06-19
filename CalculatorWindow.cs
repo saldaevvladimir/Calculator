@@ -122,7 +122,7 @@ namespace Calculator
                 labelNumber.Text = labelNumber.Text.Substring(0, labelNumber.Text.Length - 1);
 
             //ситуация: слева ноль, а после него НЕ запятая, тогда ноль можно удалить
-            if (labelNumber.Text[0] == '0' && (labelNumber.Text.IndexOf(".") != 1))
+            if (labelNumber.Text[0] == '0' && (labelNumber.Text.IndexOf(",") != 1))
                 labelNumber.Text = labelNumber.Text.Remove(0, 1);
 
             //аналогично предыдущему, только для отрицательного числа
@@ -210,8 +210,8 @@ namespace Calculator
 
         private void Point_Click(Object sender, EventArgs e)
         {
-            if ((labelNumber.Text.IndexOf(".") == -1) && (labelNumber.Text.IndexOf("∞") == -1))
-                labelNumber.Text += ".";
+            if ((labelNumber.Text.IndexOf(",") == -1) && (labelNumber.Text.IndexOf("∞") == -1))
+                labelNumber.Text += ",";
         }
 
         private void Clear_Click(Object sender, EventArgs e)
@@ -327,7 +327,7 @@ namespace Calculator
         private void Factorial_Click(Object sender, EventArgs e)
         {
             if ((Convert.ToDouble(labelNumber.Text) == (int)(Convert.ToDouble(labelNumber.Text))) && 
-                ((Convert.ToDouble(labelNumber.Text) >= 0.0)))
+                ((Math.Sign(Convert.ToDouble(labelNumber.Text)) == 1)))
             {
                 calculator.Put_A(Convert.ToDouble(labelNumber.Text));
 
@@ -430,7 +430,7 @@ namespace Calculator
             digit9 = new Button("9");
 
 
-            Point = new Button(".");
+            Point = new Button(",");
 
             Clear = new Button("Clr");
 

@@ -198,7 +198,7 @@
             </child>
             <child>
               <object class="GtkButton" id="Point">
-                <property name="label">.</property>
+                <property name="label">,</property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
