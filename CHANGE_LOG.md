@@ -9,8 +9,10 @@
 ## 1.0.1 (19.06.2023)
 
 changed functionality:
-
 - after clicking on the button of one mathematical operation for two arguments, you can now click on another one and the program will work correctly
+
+fixed bug with decimal point:
+- after pressing the decimal point button and pressing the digit, the integer part of the number was then cut off
 
 ---
 

@@ -122,7 +122,7 @@ namespace Calculator
                 labelNumber.Text = labelNumber.Text.Substring(0, labelNumber.Text.Length - 1);
 
             //ситуация: слева ноль, а после него НЕ запятая, тогда ноль можно удалить
-            if (labelNumber.Text[0] == '0' && (labelNumber.Text.IndexOf(",") != 1))
+            if (labelNumber.Text[0] == '0' && (labelNumber.Text.IndexOf(".") != 1))
                 labelNumber.Text = labelNumber.Text.Remove(0, 1);
 
             //аналогично предыдущему, только для отрицательного числа
@@ -381,9 +381,9 @@ namespace Calculator
 
         private void ChangeSign_Click(Object sender, EventArgs e)
         {
-            if (labelNumber.Text[0] == '-')
-                labelNumber.Text = labelNumber.Text.Remove('-');
-            else if (Convert.ToDouble(labelNumber.Text) != 0)
+            if (Math.Sign(Convert.ToDouble(labelNumber.Text)) == -1)
+                labelNumber.Text = labelNumber.Text.Replace("-", "");
+            else if (Convert.ToDouble(labelNumber.Text) != 0.00000000)
                 labelNumber.Text = "-" + labelNumber.Text;
         }
 
