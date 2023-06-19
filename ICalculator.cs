@@ -4,22 +4,21 @@ namespace Calculator
 {
     public interface ICalculator
     {
-        //а - первый аргумент, b - второй
-        void Put_A(double a); //сохранить а
+        void SetFirstArgument(double firstArgument);
     
-        void Clear_A();
+        void ClearFirstArgument();
     
-        double Multiplication(double b);
+        double Multiplication(double secondArgument);
     
-        double Division(double b);
+        double Division(double secondArgument);
     
-        double Sum(double b);
+        double Sum(double secondArgument);
     
-        double Subtraction(double b); //вычитание
+        double Subtraction(double secondArgument);
     
-        double SqrtX(double b);
+        double SqrtX(double secondArgument);
     
-        double DegreeY(double b);
+        double DegreeY(double secondArgument);
     
         double Sqrt();
     
@@ -27,17 +26,16 @@ namespace Calculator
     
         double Factorial();
     
-        double MemoryShow(); //показать содержимое регистра памяти
+        double M_Show();
     
-        void Memory_Clear(); //стереть содержимое регистра памяти
+        void M_Clear();
     
-        //* / + - к регистру памяти
-        void M_Multiplication(double b);
+        void M_Multiplication(double secondArgument);
     
-        void M_Division(double b);
+        void M_Division(double secondArgument);
     
-        void M_Sum(double b);
+        void M_Sum(double secondArgument);
     
-        void M_Subtraction(double b); //вычитание
+        void M_Subtraction(double secondArgument);
     }
 }

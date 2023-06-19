@@ -117,15 +117,12 @@ namespace Calculator
 
         private void CorrectNumber()
         {
-            //если есть знак "бесконечность" - не даёт писать цифры после него
             if (labelNumber.Text.IndexOf("∞") != -1)
                 labelNumber.Text = labelNumber.Text.Substring(0, labelNumber.Text.Length - 1);
 
-            //ситуация: слева ноль, а после него НЕ запятая, тогда ноль можно удалить
             if (labelNumber.Text[0] == '0' && (labelNumber.Text.IndexOf(",") != 1))
                 labelNumber.Text = labelNumber.Text.Remove(0, 1);
 
-            //аналогично предыдущему, только для отрицательного числа
             if (labelNumber.Text[0] == '-')
                 if (labelNumber.Text[1] == '0' && (labelNumber.Text.IndexOf(",") != 2))
                     labelNumber.Text = labelNumber.Text.Remove(1, 1);
@@ -218,7 +215,7 @@ namespace Calculator
         {
             labelNumber.Text = "0";
 
-            calculator.Clear_A();
+            calculator.ClearFirstArgument();
 
             lastPressedButton = null;
 
@@ -228,7 +225,7 @@ namespace Calculator
         private void Mult_Click(Object sender, EventArgs e)
         {
             if (lastPressedButton == null)
-                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
 
             lastPressedButton = Mult;
 
@@ -238,7 +235,7 @@ namespace Calculator
         private void Div_Click(Object sender, EventArgs e)
         {
             if (lastPressedButton == null)
-                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
 
             lastPressedButton = Div;
 
@@ -248,7 +245,7 @@ namespace Calculator
         private void Plus_Click(Object sender, EventArgs e)
         {
             if (lastPressedButton == null)
-                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
             
             lastPressedButton = Plus;
 
@@ -258,7 +255,7 @@ namespace Calculator
         private void Minus_Click(Object sender, EventArgs e)
         {
             if (lastPressedButton == null)
-                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
 
             lastPressedButton = Minus;
 
@@ -285,7 +282,7 @@ namespace Calculator
             if (lastPressedButton == DegreeY)
                 labelNumber.Text = calculator.DegreeY(Convert.ToDouble(labelNumber.Text)).ToString();
 
-            calculator.Clear_A();
+            calculator.ClearFirstArgument();
 
             lastPressedButton = null;
 
@@ -294,22 +291,22 @@ namespace Calculator
 
         private void Sqrt_Click(Object sender, EventArgs e)
         {
-                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
 
                 labelNumber.Text = calculator.Sqrt().ToString();
 
-                calculator.Clear_A();
+                calculator.ClearFirstArgument();
 
                 lastPressedButton = null;
         }
 
         private void Square_Click(Object sender, EventArgs e)
         {
-            calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+            calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
 
             labelNumber.Text = calculator.Square().ToString();
 
-            calculator.Clear_A();
+            calculator.ClearFirstArgument();
 
             lastPressedButton = null;
         }
@@ -317,7 +314,7 @@ namespace Calculator
         private void DegreeY_Click(Object sender, EventArgs e)
         {
             if (lastPressedButton == null)
-                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
 
             lastPressedButton = DegreeY;
 
@@ -329,11 +326,11 @@ namespace Calculator
             if ((Convert.ToDouble(labelNumber.Text) == (int)(Convert.ToDouble(labelNumber.Text))) && 
                 ((Math.Sign(Convert.ToDouble(labelNumber.Text)) == 1)))
             {
-                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
 
                 labelNumber.Text = calculator.Factorial().ToString();
 
-                calculator.Clear_A();
+                calculator.ClearFirstArgument();
                 lastPressedButton = null;
             }
             else
@@ -352,7 +349,7 @@ namespace Calculator
         private void SqrtX_Click(Object sender, EventArgs e)
         {
             if (lastPressedButton == null)
-                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
 
             lastPressedButton = SqrtX;
 
@@ -392,11 +389,11 @@ namespace Calculator
             MRC_СlickCount++;
 
             if (MRC_СlickCount == 1)
-                labelNumber.Text = calculator.MemoryShow().ToString();
+                labelNumber.Text = calculator.M_Show().ToString();
 
             if (MRC_СlickCount == 2)
             {
-                calculator.Memory_Clear();
+                calculator.M_Clear();
 
                 labelNumber.Text = "0";
 

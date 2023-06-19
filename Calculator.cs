@@ -4,100 +4,97 @@ namespace Calculator
 {
     public class Calculator : ICalculator
     {
-        private double a = 0;
+        private double firstArgument = 0;
         private double memory = 0;
     
-        public void Put_A(double a)
+        public void SetFirstArgument(double firstArgument)
         {
-            this.a = a;
+            this.firstArgument = firstArgument;
         }
     
-        public void Clear_A()
+        public void ClearFirstArgument()
         {
-            a = 0;
+            firstArgument = 0;
         }
     
-        public double Multiplication(double b)
+        public double Multiplication(double secondArgument)
         {
-            return a * b;
+            return firstArgument *secondArgument;
         }
     
-        public double Division(double b)
+        public double Division(double secondArgument)
         {
-            return a / b;
+            return firstArgument / secondArgument;
         }
     
-        public double Sum(double b)
+        public double Sum(double secondArgument)
         {
-            return a + b;
+            return firstArgument + secondArgument;
         }
     
-        public double Subtraction(double b) //вычитание
+        public double Subtraction(double secondArgument)
         {
-            return a - b;
+            return firstArgument - secondArgument;
         }
     
-        public double SqrtX(double b)
+        public double SqrtX(double secondArgument)
         {
-            return Math.Pow(a, 1 / b);
+            return Math.Pow(firstArgument, 1 / secondArgument);
         }
     
-        public double DegreeY(double b)
+        public double DegreeY(double secondArgument)
         {
-            return Math.Pow(a, b);
+            return Math.Pow(firstArgument, secondArgument);
         }
     
         public double Sqrt()
         {
-            return Math.Sqrt(a);
+            return Math.Sqrt(firstArgument);
         }
     
         public double Square()
         {
-            return Math.Pow(a, 2.0);
+            return Math.Pow(firstArgument, 2.0);
         }
     
         public double Factorial()
         {
             double f = 1;
     
-            for (int i = 1; i <= a; i++)
+            for (int i = 1; i <= firstArgument; i++)
                 f *= (double)i;
     
             return f;
         }
     
-        //показать содержимое регистра мамяти
-        public double MemoryShow()
+        public double M_Show()
         {
             return memory;
         }
-    
-        //стереть содержимое регистра мамяти
-        public void Memory_Clear()
+
+        public void M_Clear()
         {
             memory = 0.0;
         }
-    
-        //* / + - к регистру памяти
-        public void M_Multiplication(double b)
+
+        public void M_Multiplication(double secondArgument)
         {
-            memory *= b;
+            memory *= secondArgument;
         }
     
-        public void M_Division(double b)
+        public void M_Division(double secondArgument)
         {
-            memory /= b;
+            memory /= secondArgument;
         }
     
-        public void M_Sum(double b)
+        public void M_Sum(double secondArgument)
         {
-            memory += b;
+            memory += secondArgument;
         }
     
-        public void M_Subtraction(double b)
+        public void M_Subtraction(double secondArgument)
         {
-            memory -= b;
+            memory -= secondArgument;
         }
     }
 }
