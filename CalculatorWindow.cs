@@ -13,19 +13,9 @@ namespace Calculator
 
         private int MRC_СlickCount;
 
+        private Button lastPressedButton = null;
+
         [UI] private Label labelNumber = null;
-
-        private bool Plus_Pressed = false;
-
-        private bool Minus_Pressed = false;
-
-        private bool Mult_Pressed = false;
-
-        private bool Div_Pressed = false;
-
-        private bool SqrtX_Pressed = false;
-
-        private bool DegreeY_Pressed = false;
 
         #region Buttons
 
@@ -141,30 +131,6 @@ namespace Calculator
                     labelNumber.Text = labelNumber.Text.Remove(1, 1);
         }
 
-        //проверяет не нажата ли еще какая-либо из кнопок мат.операций
-        private bool CanPress()
-        {   
-            if (Mult_Pressed)
-                return false;
-
-            if (Div_Pressed)
-                return false;
-
-            if (Plus_Pressed)
-                return false;
-
-            if (Minus_Pressed)
-                return false;
-
-            if (SqrtX_Pressed)
-                return false;
-
-            if (DegreeY_Pressed)
-                return false;
-
-            return true;
-        }
-
         private void turnOff_Click(Object sender, EventArgs e)
         {
             this.Destroy();
@@ -254,166 +220,143 @@ namespace Calculator
 
             calculator.Clear_A();
 
-            FreeButtons();
+            lastPressedButton = null;
 
             MRC_СlickCount = 0;
         }
 
         private void Mult_Click(Object sender, EventArgs e)
         {
-            if(CanPress())
-            {
+            if (lastPressedButton == null)
                 calculator.Put_A(Convert.ToDouble(labelNumber.Text));
 
-                Mult_Pressed = true;
+            lastPressedButton = Mult;
 
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text = "0";
         }
 
         private void Div_Click(Object sender, EventArgs e)
         {
-            if (CanPress())
-            {
+            if (lastPressedButton == null)
                 calculator.Put_A(Convert.ToDouble(labelNumber.Text));
 
-                Div_Pressed = true;
+            lastPressedButton = Div;
 
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text = "0";
         }
 
         private void Plus_Click(Object sender, EventArgs e)
         {
-            if (CanPress())
-            {
+            if (lastPressedButton == null)
                 calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+            
+            lastPressedButton = Plus;
 
-                Plus_Pressed = true;
-
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text = "0";
         }
 
         private void Minus_Click(Object sender, EventArgs e)
         {
-            if (CanPress())
-            {
+            if (lastPressedButton == null)
                 calculator.Put_A(Convert.ToDouble(labelNumber.Text));
 
-                Minus_Pressed = true;
+            lastPressedButton = Minus;
 
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text = "0";
         }
 
         private void Calc_Click(Object sender, EventArgs e)
         {
-            if (Mult_Pressed)
+            if (lastPressedButton == Mult)
                 labelNumber.Text = calculator.Multiplication(Convert.ToDouble(labelNumber.Text)).ToString();
 
-            if (Div_Pressed)
+            if (lastPressedButton == Div)
                 labelNumber.Text = calculator.Division(Convert.ToDouble(labelNumber.Text)).ToString();
 
-            if (Plus_Pressed)
+            if (lastPressedButton == Plus)
                 labelNumber.Text = calculator.Sum(Convert.ToDouble(labelNumber.Text)).ToString();
 
-            if (Minus_Pressed)
+            if (lastPressedButton == Minus)
                 labelNumber.Text = calculator.Subtraction(Convert.ToDouble(labelNumber.Text)).ToString();
 
-            if (SqrtX_Pressed)
+            if (lastPressedButton == SqrtX)
                 labelNumber.Text = calculator.SqrtX(Convert.ToDouble(labelNumber.Text)).ToString();
 
-            if (DegreeY_Pressed)
+            if (lastPressedButton == DegreeY)
                 labelNumber.Text = calculator.DegreeY(Convert.ToDouble(labelNumber.Text)).ToString();
 
             calculator.Clear_A();
 
-            FreeButtons();
+            lastPressedButton = null;
 
             MRC_СlickCount = 0;
         }
 
         private void Sqrt_Click(Object sender, EventArgs e)
         {
-            if (CanPress())
-            {
                 calculator.Put_A(Convert.ToDouble(labelNumber.Text));
 
                 labelNumber.Text = calculator.Sqrt().ToString();
 
                 calculator.Clear_A();
 
-                FreeButtons();
-            }
+                lastPressedButton = null;
         }
 
         private void Square_Click(Object sender, EventArgs e)
         {
-            if (CanPress())
-            {
-                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+            calculator.Put_A(Convert.ToDouble(labelNumber.Text));
 
-                labelNumber.Text = calculator.Square().ToString();
+            labelNumber.Text = calculator.Square().ToString();
 
-                calculator.Clear_A();
+            calculator.Clear_A();
 
-                FreeButtons();
-            }
+            lastPressedButton = null;
         }
 
         private void DegreeY_Click(Object sender, EventArgs e)
         {
-            if (CanPress())
-            {
+            if (lastPressedButton == null)
                 calculator.Put_A(Convert.ToDouble(labelNumber.Text));
 
-                DegreeY_Pressed = true;
+            lastPressedButton = DegreeY;
 
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text = "0";
         }
 
         private void Factorial_Click(Object sender, EventArgs e)
         {
-            if (CanPress())
+            if ((Convert.ToDouble(labelNumber.Text) == (int)(Convert.ToDouble(labelNumber.Text))) && 
+                ((Convert.ToDouble(labelNumber.Text) >= 0.0)))
             {
-                if ((Convert.ToDouble(labelNumber.Text) == (int)(Convert.ToDouble(labelNumber.Text))) && 
-                    ((Convert.ToDouble(labelNumber.Text) >= 0.0)))
-                {
-                    calculator.Put_A(Convert.ToDouble(labelNumber.Text));
+                calculator.Put_A(Convert.ToDouble(labelNumber.Text));
 
-                    labelNumber.Text = calculator.Factorial().ToString();
+                labelNumber.Text = calculator.Factorial().ToString();
 
-                    calculator.Clear_A();
-                    FreeButtons();
-                }
-                else
-                {
-                    //MessageBox.Show("Число должно быть >= 0 и целым!");
-                
-                    MessageDialog messageDialog = new MessageDialog(this, 
-                        DialogFlags.Modal, 
-                        MessageType.Error, 
-                        ButtonsType.Ok, 
-                        "Введите целое число >= 0");
-                        
-                    messageDialog.Run();
-                    messageDialog.Destroy();
-                }
+                calculator.Clear_A();
+                lastPressedButton = null;
+            }
+            else
+            {
+                MessageDialog messageDialog = new MessageDialog(this, 
+                    DialogFlags.Modal, 
+                    MessageType.Error, 
+                    ButtonsType.Ok, 
+                    "Введите целое число >= 0");
+                    
+                messageDialog.Run();
+                messageDialog.Destroy();
             }
         }
 
         private void SqrtX_Click(Object sender, EventArgs e)
         {
-            if (CanPress())
-            {
+            if (lastPressedButton == null)
                 calculator.Put_A(Convert.ToDouble(labelNumber.Text));
 
-                SqrtX_Pressed = true;
+            lastPressedButton = SqrtX;
 
-                labelNumber.Text = "0";
-            }
+            labelNumber.Text = "0";
         }
 
         private void MPlus_Click(Object sender, EventArgs e)
@@ -440,43 +383,25 @@ namespace Calculator
         {
             if (labelNumber.Text[0] == '-')
                 labelNumber.Text = labelNumber.Text.Remove('-');
-            else
+            else if (Convert.ToDouble(labelNumber.Text) != 0)
                 labelNumber.Text = "-" + labelNumber.Text;
         }
 
         private void MRC_Click(Object sender, EventArgs e)
         {
-            if (CanPress())
+            MRC_СlickCount++;
+
+            if (MRC_СlickCount == 1)
+                labelNumber.Text = calculator.MemoryShow().ToString();
+
+            if (MRC_СlickCount == 2)
             {
-                MRC_СlickCount++;
+                calculator.Memory_Clear();
 
-                if (MRC_СlickCount == 1)
-                    labelNumber.Text = calculator.MemoryShow().ToString();
+                labelNumber.Text = "0";
 
-                if (MRC_СlickCount == 2)
-                {
-                    calculator.Memory_Clear();
-
-                    labelNumber.Text = "0";
-
-                    MRC_СlickCount = 0;
-                }
+                MRC_СlickCount = 0;
             }
-        }
-
-        private void FreeButtons()
-        {
-            Mult_Pressed = false;
-
-            Div_Pressed = false;
-
-            Plus_Pressed = false;
-
-            Minus_Pressed = false;
-
-            SqrtX_Pressed = false;
-
-            DegreeY_Pressed = false;
         }
 
         private void InitializeButtons()
