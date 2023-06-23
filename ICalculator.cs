@@ -5,6 +5,8 @@ namespace Calculator
     public interface ICalculator
     {
         void SetFirstArgument(double firstArgument);
+
+        double GetFirstArgument();
     
         void ClearFirstArgument();
     
@@ -15,16 +17,12 @@ namespace Calculator
         double Sum(double secondArgument);
     
         double Subtraction(double secondArgument);
-    
-        double SqrtX(double secondArgument);
-    
+
         double DegreeY(double secondArgument);
     
-        double Sqrt();
+        double Sqrt(double argument);
     
-        double Square();
-    
-        double Factorial();
+        double Factorial(double argument);
     
         double M_Show();
     

@@ -11,6 +11,11 @@ namespace Calculator
         {
             this.firstArgument = firstArgument;
         }
+
+        public double GetFirstArgument()
+        {
+            return this.firstArgument;
+        }
     
         public void ClearFirstArgument()
         {
@@ -37,34 +42,24 @@ namespace Calculator
             return firstArgument - secondArgument;
         }
     
-        public double SqrtX(double secondArgument)
-        {
-            return Math.Pow(firstArgument, 1 / secondArgument);
-        }
-    
         public double DegreeY(double secondArgument)
         {
             return Math.Pow(firstArgument, secondArgument);
         }
     
-        public double Sqrt()
+        public double Sqrt(double argument)
         {
-            return Math.Sqrt(firstArgument);
+            return Math.Sqrt(argument);
         }
     
-        public double Square()
+        public double Factorial(double argument)
         {
-            return Math.Pow(firstArgument, 2.0);
-        }
+            double factorial = 1;
     
-        public double Factorial()
-        {
-            double f = 1;
+            for (int i = 1; i <= argument; i++)
+                factorial *= (double)i;
     
-            for (int i = 1; i <= firstArgument; i++)
-                f *= (double)i;
-    
-            return f;
+            return factorial;
         }
     
         public double M_Show()

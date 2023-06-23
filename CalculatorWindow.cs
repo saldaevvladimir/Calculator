@@ -42,40 +42,36 @@ namespace Calculator
         [UI] private Button digit9 = null;
 
 
-        [UI] private Button Point = null;
+        [UI] private Button point = null;
 
-        [UI] private Button Clear = null;
+        [UI] private Button clear = null;
 
-        [UI] private Button Mult = null;
+        [UI] private Button mult = null;
 
-        [UI] private Button Div = null;
+        [UI] private Button div = null;
 
-        [UI] private Button Plus = null;
+        [UI] private Button plus = null;
 
-        [UI] private Button Minus = null;
+        [UI] private Button minus = null;
 
-        [UI] private Button Calc = null;
+        [UI] private Button calc = null;
 
-        [UI] private Button Sqrt = null;
+        [UI] private Button sqrt = null;
 
-        [UI] private Button Square = null;
+        [UI] private Button degreeY = null;
 
-        [UI] private Button DegreeY = null;
+        [UI] private Button factorial = null;
 
-        [UI] private Button Factorial = null;
+        [UI] private Button M_plus = null;
 
-        [UI] private Button SqrtX = null;
+        [UI] private Button M_minus = null;
 
-        [UI] private Button MPlus = null;
+        [UI] private Button M_mult = null;
 
-        [UI] private Button MMinus = null;
+        [UI] private Button M_div = null;
 
-        [UI] private Button MMult = null;
+        [UI] private Button changeSign = null;
 
-        [UI] private Button MDiv = null;
-
-        [UI] private Button ChangeSign = null;
-        
         [UI] private Button MRC = null;
 
         #endregion
@@ -92,23 +88,18 @@ namespace Calculator
 
             DeleteEvent += Window_DeleteEvent;
 
-            Build();
+            calculator = new Calculator();
+
+            MRC_СlickCount = 0;
+
+            InitializeButtons(builder);
+
+            AddButtonClickHandlers();
         }
 
         #endregion
 
         #region Methods
-
-        protected void Build()
-        {
-            calculator = new Calculator();
-
-            MRC_СlickCount = 0;
-
-            InitializeButtons();
-
-            AddButtonClickHandlers();
-        }
 
         private void Window_DeleteEvent(object sender, DeleteEventArgs a)
         {
@@ -128,79 +119,78 @@ namespace Calculator
                     labelNumber.Text = labelNumber.Text.Remove(1, 1);
         }
 
-        private void turnOff_Click(Object sender, EventArgs e)
+        private double GetCurrentNumber(bool operationButtonPressed)
+        {
+            if (!operationButtonPressed)
+                return Convert.ToDouble(labelNumber.Text);
+            else
+                return calculator.GetFirstArgument();
+        }
+
+        private void HandleLastPressedButton()
+        {
+            if (lastPressedButton == mult)
+                calculator.SetFirstArgument(calculator.Multiplication(Convert.ToDouble(labelNumber.Text)));
+
+            if (lastPressedButton == div)
+                calculator.SetFirstArgument(calculator.Division(Convert.ToDouble(labelNumber.Text)));
+
+            if (lastPressedButton == plus)
+                calculator.SetFirstArgument(calculator.Sum(Convert.ToDouble(labelNumber.Text)));
+
+            if (lastPressedButton == minus)
+                calculator.SetFirstArgument(calculator.Subtraction(Convert.ToDouble(labelNumber.Text)));
+
+            if (lastPressedButton == degreeY)
+                calculator.SetFirstArgument(calculator.DegreeY(Convert.ToDouble(labelNumber.Text)));
+
+            lastPressedButton = null;
+        }
+
+        private void Operation2Arg_Click(Object sender, EventArgs e, Button button)
+        {
+            HandleTrigger();
+
+            lastPressedButton = button;
+
+            ClearLabel();
+        }
+
+        private void ClearLabel()
+        {
+            labelNumber.Text = "0";
+        }
+
+        private void HandleTrigger()
+        {
+            if (lastPressedButton == null)
+                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
+            else
+                HandleLastPressedButton();
+        }
+
+        private void Message(string messageText)
+        {
+            MessageDialog messageDialog = new MessageDialog(this,
+                DialogFlags.Modal,
+                MessageType.Error,
+                ButtonsType.Ok,
+                messageText);
+
+            messageDialog.Run();
+            messageDialog.Destroy();
+        }
+
+        private void TurnOff_Click(Object sender, EventArgs e)
         {
             this.Destroy();
 
             Application.Quit();
         }
 
-        private void digit0_Click(Object sender, EventArgs e)
+        private void Digit_Click(Object sender, EventArgs e, int digit)
         {
-            labelNumber.Text += "0";
-
-            CorrectNumber();
-        }
-
-        private void digit1_Click(Object sender, EventArgs e)
-        {
-            labelNumber.Text += "1";
-
-            CorrectNumber();
-        }
-
-        private void digit2_Click(Object sender, EventArgs e)
-        {
-            labelNumber.Text += "2";
-
-            CorrectNumber();
-        }
-
-        private void digit3_Click(Object sender, EventArgs e)
-        {
-            labelNumber.Text += "3";
-
-            CorrectNumber();
-        }
-
-        private void digit4_Click(Object sender, EventArgs e)
-        {
-            labelNumber.Text += "4";
-
-            CorrectNumber();
-        }
-
-        private void digit5_Click(Object sender, EventArgs e)
-        {
-            labelNumber.Text += "5";
-
-            CorrectNumber();
-        }
-
-        private void digit6_Click(Object sender, EventArgs e)
-        {
-            labelNumber.Text += "6";
-
-            CorrectNumber();
-        }
-
-        private void digit7_Click(Object sender, EventArgs e)
-        {
-            labelNumber.Text += "7";
-
-            CorrectNumber();
-        }
-
-        private void digit8_Click(Object sender, EventArgs e)
-        {
-            labelNumber.Text += "8";
-
-            CorrectNumber();
-        }
-
-        private void digit9_Click(Object sender, EventArgs e)
-        {
-            labelNumber.Text += "9";
+            labelNumber.Text += digit;
 
             CorrectNumber();
         }
@@ -213,7 +203,7 @@ namespace Calculator
 
         private void Clear_Click(Object sender, EventArgs e)
         {
-            labelNumber.Text = "0";
+            ClearLabel();
 
             calculator.ClearFirstArgument();
 
@@ -222,65 +212,13 @@ namespace Calculator
             MRC_СlickCount = 0;
         }
 
-        private void Mult_Click(Object sender, EventArgs e)
-        {
-            if (lastPressedButton == null)
-                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
-
-            lastPressedButton = Mult;
-
-            labelNumber.Text = "0";
-        }
-
-        private void Div_Click(Object sender, EventArgs e)
-        {
-            if (lastPressedButton == null)
-                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
-
-            lastPressedButton = Div;
-
-            labelNumber.Text = "0";
-        }
-
-        private void Plus_Click(Object sender, EventArgs e)
-        {
-            if (lastPressedButton == null)
-                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
-            
-            lastPressedButton = Plus;
-
-            labelNumber.Text = "0";
-        }
-
-        private void Minus_Click(Object sender, EventArgs e)
-        {
-            if (lastPressedButton == null)
-                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
-
-            lastPressedButton = Minus;
-
-            labelNumber.Text = "0";
-        }
-
         private void Calc_Click(Object sender, EventArgs e)
         {
-            if (lastPressedButton == Mult)
-                labelNumber.Text = calculator.Multiplication(Convert.ToDouble(labelNumber.Text)).ToString();
+            bool operationButtonPressed = (lastPressedButton != null);
 
-            if (lastPressedButton == Div)
-                labelNumber.Text = calculator.Division(Convert.ToDouble(labelNumber.Text)).ToString();
+            HandleLastPressedButton();
 
-            if (lastPressedButton == Plus)
-                labelNumber.Text = calculator.Sum(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (lastPressedButton == Minus)
-                labelNumber.Text = calculator.Subtraction(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (lastPressedButton == SqrtX)
-                labelNumber.Text = calculator.SqrtX(Convert.ToDouble(labelNumber.Text)).ToString();
-
-            if (lastPressedButton == DegreeY)
-                labelNumber.Text = calculator.DegreeY(Convert.ToDouble(labelNumber.Text)).ToString();
+            labelNumber.Text = GetCurrentNumber(operationButtonPressed).ToString();
 
             calculator.ClearFirstArgument();
 
@@ -291,69 +229,18 @@ namespace Calculator
 
         private void Sqrt_Click(Object sender, EventArgs e)
         {
-                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
-
-                labelNumber.Text = calculator.Sqrt().ToString();
-
-                calculator.ClearFirstArgument();
-
-                lastPressedButton = null;
-        }
-
-        private void Square_Click(Object sender, EventArgs e)
-        {
-            calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
-
-            labelNumber.Text = calculator.Square().ToString();
-
-            calculator.ClearFirstArgument();
-
-            lastPressedButton = null;
-        }
-
-        private void DegreeY_Click(Object sender, EventArgs e)
-        {
-            if (lastPressedButton == null)
-                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
-
-            lastPressedButton = DegreeY;
-
-            labelNumber.Text = "0";
+            if (Math.Sign(Convert.ToDouble(labelNumber.Text)) == 1)
+                labelNumber.Text = calculator.Sqrt(Convert.ToDouble(labelNumber.Text)).ToString();
+            else
+                Message("введите положительное число");
         }
 
         private void Factorial_Click(Object sender, EventArgs e)
         {
-            if ((Convert.ToDouble(labelNumber.Text) == (int)(Convert.ToDouble(labelNumber.Text))) && 
-                ((Math.Sign(Convert.ToDouble(labelNumber.Text)) == 1)))
-            {
-                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
-
-                labelNumber.Text = calculator.Factorial().ToString();
-
-                calculator.ClearFirstArgument();
-                lastPressedButton = null;
-            }
+            if (Double.TryParse(labelNumber.Text, out var num) && (num == (int)num) && (Math.Sign(num) != -1))
+                labelNumber.Text = calculator.Factorial(Convert.ToDouble(labelNumber.Text)).ToString();
             else
-            {
-                MessageDialog messageDialog = new MessageDialog(this, 
-                    DialogFlags.Modal, 
-                    MessageType.Error, 
-                    ButtonsType.Ok, 
-                    "Введите целое число >= 0");
-                    
-                messageDialog.Run();
-                messageDialog.Destroy();
-            }
-        }
-
-        private void SqrtX_Click(Object sender, EventArgs e)
-        {
-            if (lastPressedButton == null)
-                calculator.SetFirstArgument(Convert.ToDouble(labelNumber.Text));
-
-            lastPressedButton = SqrtX;
-
-            labelNumber.Text = "0";
+                Message("введите целое число >= 0");
         }
 
         private void MPlus_Click(Object sender, EventArgs e)
@@ -380,7 +267,7 @@ namespace Calculator
         {
             if (Math.Sign(Convert.ToDouble(labelNumber.Text)) == -1)
                 labelNumber.Text = labelNumber.Text.Replace("-", "");
-            else if (Convert.ToDouble(labelNumber.Text) != 0.00000000)
+            else if (Math.Sign(Convert.ToDouble(labelNumber.Text)) != 0)
                 labelNumber.Text = "-" + labelNumber.Text;
         }
 
@@ -395,136 +282,103 @@ namespace Calculator
             {
                 calculator.M_Clear();
 
-                labelNumber.Text = "0";
+                ClearLabel();
 
                 MRC_СlickCount = 0;
             }
         }
 
-        private void InitializeButtons()
+        private void InitializeButtons(Builder builder)
         {
-            turnOff = new Button("Exit");
+            turnOff = (Button)builder.GetObject("TurnOff");
 
 
-            digit0 = new Button("0");
+            digit0 = (Button)builder.GetObject("digit0");
 
-            digit1 = new Button("1");
+            digit1 = (Button)builder.GetObject("digit1");
 
-            digit2 = new Button("2");
+            digit2 = (Button)builder.GetObject("digit2");
 
-            digit3 = new Button("3");
+            digit3 = (Button)builder.GetObject("digit3");
 
-            digit4 = new Button("4");
+            digit4 = (Button)builder.GetObject("digit4");
 
-            digit5 = new Button("5");
+            digit5 = (Button)builder.GetObject("digit5");
 
-            digit6 = new Button("6");
+            digit6 = (Button)builder.GetObject("digit6");
 
-            digit7 = new Button("7");
+            digit7 = (Button)builder.GetObject("digit7");
 
-            digit8 = new Button("8");
+            digit8 = (Button)builder.GetObject("digit8");
 
-            digit9 = new Button("9");
+            digit9 = (Button)builder.GetObject("digit9");
 
 
-            Point = new Button(",");
+            point = (Button)builder.GetObject("Point");
 
-            Clear = new Button("Clr");
+            clear = (Button)builder.GetObject("Clear");
 
-            Mult = new Button("*");
+            mult = (Button)builder.GetObject("Mult");
 
-            Div = new Button("/");
+            div = (Button)builder.GetObject("Div");
 
-            Plus = new Button("+");
+            plus = (Button)builder.GetObject("Plus");
 
-            Minus = new Button("-");
+            minus = (Button)builder.GetObject("Minus");
 
-            Calc = new Button("=");
+            calc = (Button)builder.GetObject("Calc");
 
-            Sqrt = new Button("√");
+            sqrt = (Button)builder.GetObject("Cqrt");
 
-            Square = new Button("^2");
+            degreeY = (Button)builder.GetObject("DegreeY");
 
-            DegreeY = new Button("^y");
+            factorial = (Button)builder.GetObject("Factorial");
 
-            Factorial = new Button("n!");
+            changeSign = (Button)builder.GetObject("ChangeSign");
 
-            SqrtX = new Button("n√");
+            M_plus = (Button)builder.GetObject("MPlus");
 
-            MPlus = new Button("M+");
+            M_minus = (Button)builder.GetObject("MMinus");
 
-            MMinus = new Button("M-");
+            M_mult = (Button)builder.GetObject("MMult");
 
-            MMult = new Button("M*");
-            
-            MDiv = new Button("M/");
+            M_div = (Button)builder.GetObject("MDiv");
 
-            ChangeSign = new Button("+/-");
-
-            MRC = new Button("MRC");
+            MRC = (Button)builder.GetObject("MRC");
         }
 
         private void AddButtonClickHandlers()
         {
-            turnOff.Clicked += turnOff_Click;
+            digit0.Clicked += (s, a) => Digit_Click(s, a, 0);
+
+            digit1.Clicked += (s, a) => Digit_Click(s, a, 1);
+
+            digit2.Clicked += (s, a) => Digit_Click(s, a, 2);
+
+            digit3.Clicked += (s, a) => Digit_Click(s, a, 3);
+
+            digit4.Clicked += (s, a) => Digit_Click(s, a, 4);
+
+            digit5.Clicked += (s, a) => Digit_Click(s, a, 5);
+
+            digit6.Clicked += (s, a) => Digit_Click(s, a, 6);
+
+            digit7.Clicked += (s, a) => Digit_Click(s, a, 7);
+
+            digit8.Clicked += (s, a) => Digit_Click(s, a, 8);
+
+            digit9.Clicked += (s, a) => Digit_Click(s, a, 9);
 
 
-            digit0.Clicked += digit0_Click;
+            plus.Clicked += (s, a) => Operation2Arg_Click(s, a, plus);
 
-            digit1.Clicked += digit2_Click;
+            mult.Clicked += (s, a) => Operation2Arg_Click(s, a, mult);
 
-            digit2.Clicked += digit2_Click;
+            div.Clicked += (s, a) => Operation2Arg_Click(s, a, div);
 
-            digit3.Clicked += digit3_Click;
+            minus.Clicked += (s, a) => Operation2Arg_Click(s, a, minus);
 
-            digit4.Clicked += digit4_Click;
-
-            digit5.Clicked += digit5_Click;
-
-            digit6.Clicked += digit6_Click;
-
-            digit7.Clicked += digit7_Click;
-
-            digit8.Clicked += digit8_Click;
-
-            digit9.Clicked += digit9_Click;
-
-
-            Point.Clicked += Point_Click;
-
-            Clear.Clicked += Clear_Click;
-
-            Mult.Clicked += Mult_Click;
-
-            Div.Clicked += Div_Click;
-
-            Plus.Clicked += Plus_Click;
-
-            Minus.Clicked += Minus_Click;
-
-            Calc.Clicked += Calc_Click;
-
-            Sqrt.Clicked += Sqrt_Click;
-
-            Square.Clicked += Square_Click;
-
-            DegreeY.Clicked += DegreeY_Click;
-
-            Factorial.Clicked += Factorial_Click;
-
-            SqrtX.Clicked += SqrtX_Click;
-
-            MPlus.Clicked += MPlus_Click;
-
-            MMinus.Clicked += MMinus_Click;
-
-            MMult.Clicked += MMult_Click;
-
-            MDiv.Clicked += MDiv_Click;
-
-            ChangeSign.Clicked += ChangeSign_Click;
-
-            MRC.Clicked += MRC_Click;
+            degreeY.Clicked += (s, a) => Operation2Arg_Click(s, a, degreeY);
         }
 
         #endregion

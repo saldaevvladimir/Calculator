@@ -16,13 +16,13 @@
         <property name="margin">6</property>
         <property name="orientation">vertical</property>
         <child>
-          <object class="GtkButton" id="turnOff">
+          <object class="GtkButton" id="TurnOff">
             <property name="label" translatable="yes">Exit</property>
             <property name="visible">True</property>
             <property name="margin">5</property>
             <property name="hexpand">False</property> 
             <property name="vexpand">False</property>
-            <signal name="clicked" handler="turnOff_Click"/>
+            <signal name="clicked" handler="TurnOff_Click"/>
           </object>
           <packing>
             <property name="pack_type">start</property>   
@@ -56,12 +56,11 @@
             <property name="column_spacing">6</property>
             <child>
               <object class="GtkButton" id="digit7">
-                <property name="label">7</property>
+                <property name="label"> 7 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit7_Click"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -70,12 +69,11 @@
             </child>
             <child>
               <object class="GtkButton" id="digit8">
-                <property name="label">8</property>
+                <property name="label"> 8 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit8_Click"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -84,12 +82,11 @@
             </child>
             <child>
               <object class="GtkButton" id="digit9">
-                <property name="label">9</property>
+                <property name="label"> 9 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit9_Click"/>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -98,12 +95,11 @@
             </child>
             <child>
               <object class="GtkButton" id="digit4">
-                <property name="label">4</property>
+                <property name="label"> 4 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit4_Click"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -112,12 +108,11 @@
             </child>
             <child>
               <object class="GtkButton" id="digit5">
-                <property name="label">5</property>
+                <property name="label"> 5 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit5_Click"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -126,12 +121,11 @@
             </child>
             <child>
               <object class="GtkButton" id="digit6">
-                <property name="label">6</property>
+                <property name="label"> 6 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit6_Click"/>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -140,12 +134,11 @@
             </child>
             <child>
               <object class="GtkButton" id="digit1">
-                <property name="label">1</property>
+                <property name="label"> 1 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit1_Click"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -154,12 +147,11 @@
             </child>
             <child>
               <object class="GtkButton" id="digit2">
-                <property name="label">2</property>
+                <property name="label"> 2 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit2_Click"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -168,12 +160,11 @@
             </child>
             <child>
               <object class="GtkButton" id="digit3">
-                <property name="label">3</property>
+                <property name="label"> 3 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit3_Click"/>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -182,12 +173,11 @@
             </child>
             <child>
               <object class="GtkButton" id="digit0">
-                <property name="label">0</property>
+                <property name="label"> 0 </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="digit0_Click"/>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -198,7 +188,7 @@
             </child>
             <child>
               <object class="GtkButton" id="Point">
-                <property name="label">,</property>
+                <property name="label"> , </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
@@ -226,7 +216,7 @@
             </child>
             <child>
               <object class="GtkButton" id="MPlus">
-                <property name="label">M+</property>
+                <property name="label"> M+</property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
@@ -240,7 +230,7 @@
             </child>
             <child>
               <object class="GtkButton" id="MMinus">
-                <property name="label">M-</property>
+                <property name="label"> M-</property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
@@ -254,7 +244,7 @@
             </child>
             <child>
               <object class="GtkButton" id="MMult">
-                <property name="label">M*</property>
+                <property name="label"> M*</property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
@@ -268,7 +258,7 @@
             </child>
             <child>
               <object class="GtkButton" id="MDiv">
-                <property name="label">M/</property>
+                <property name="label"> M/</property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
@@ -282,7 +272,7 @@
             </child>
             <child>
               <object class="GtkButton" id="Clear">
-                <property name="label">CE</property>
+                <property name="label"> CE</property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
@@ -296,12 +286,11 @@
             </child>
             <child>
               <object class="GtkButton" id="Mult">
-                <property name="label">*</property>
+                <property name="label"> * </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="Mult_Click"/>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -315,7 +304,6 @@
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="DegreeY_Click"/>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -324,7 +312,7 @@
             </child>
             <child>
               <object class="GtkButton" id="ChangeSign">
-                <property name="label">±</property>
+                <property name="label"> ± </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
@@ -338,12 +326,11 @@
             </child>
             <child>
               <object class="GtkButton" id="Div">
-                <property name="label">/</property>
+                <property name="label"> / </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="Div_Click"/>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -352,7 +339,7 @@
             </child>
             <child>
               <object class="GtkButton" id="Sqrt">
-                <property name="label">√</property>
+                <property name="label"> √ </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
@@ -366,7 +353,7 @@
             </child>
             <child>
               <object class="GtkButton" id="Factorial">
-                <property name="label">x!</property>
+                <property name="label"> x!</property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
@@ -380,12 +367,11 @@
             </child>
             <child>
               <object class="GtkButton" id="Plus">
-                <property name="label">+</property>
+                <property name="label"> + </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="Plus_Click"/>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -394,12 +380,11 @@
             </child>
             <child>
               <object class="GtkButton" id="Minus">
-                <property name="label">-</property>
+                <property name="label"> - </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>
                 <property name="margin">5</property>
-                <signal name="clicked" handler="Minus_Click"/>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -408,7 +393,7 @@
             </child>
             <child>
               <object class="GtkButton" id="Calc">
-                <property name="label">=</property>
+                <property name="label"> = </property>
                 <property name="visible">True</property>
                 <property name="hexpand">True</property>
                 <property name="vexpand">True</property>

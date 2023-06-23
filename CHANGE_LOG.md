@@ -1,8 +1,17 @@
 # Change Log
 
-## 1.0.2 ()
+## 1.0.3 ()
 
-...
+---
+
+## 1.0.2 (24.06.2023)
+
+changed functionality:
+- added the ability to sequentially perform operations without using the "=" button
+
+removed unused methods and buttons
+
+shortened the code (some button click handlers were merged)
 
 ---
 
